@@ -66,6 +66,8 @@ jobs:
          sudo apt-get install --no-install-recommends -y binutils binutils-aarch64-linux-gnu binutils-arm-linux-gnueabi git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev g++-multilib libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libssl-dev pwgen libswitch-perl policycoreutils minicom libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler python3 aria2
     - name: Download GCC
       run: |
+         if [ ${{ inputs.aosp-clang }} == false ]; then
+            echo "aosp-clang disable"
          if [ "${{ inputs.aosp-gcc-64 }}" = "" ]; then
             aria2c -o gcc-aarch64.tar.gz https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/+archive/refs/tags/android-11.0.0_r46.tar.gz
          else
@@ -87,7 +89,7 @@ jobs:
          else
             aria2c -o aosp-clang.tar.gz ${{ inputs.aosp-clang }}
          elif [ ${{ inputs.aosp-clang }} != false ]; then
-                aria2c -o aosp-clang.tar.gz ${{ inputs.aosp-clang }}
+            aria2c -o aosp-clang.tar.gz ${{ inputs.aosp-clang }}
          fi
          mkdir $HOME/clang -p -v
          tar -C $HOME/clang -zxf aosp-clang.tar.gz
