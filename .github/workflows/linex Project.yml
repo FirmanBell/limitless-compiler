@@ -86,6 +86,8 @@ jobs:
             aria2c -o aosp-clang.tar.gz https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-11.0.0_r46/clang-r383902b1.tar.gz
          else
             aria2c -o aosp-clang.tar.gz ${{ inputs.aosp-clang }}
+         elif [ ${{ inputs.aosp-clang }} != false ]; then
+                aria2c -o aosp-clang.tar.gz ${{ inputs.aosp-clang }}
          fi
          mkdir $HOME/clang -p -v
          tar -C $HOME/clang -zxf aosp-clang.tar.gz
