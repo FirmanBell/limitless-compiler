@@ -10,7 +10,7 @@ on:
         type: string
       name:
         description: 'Name'
-        default: '4.4.302'
+        default: '4.4.302-LonelinessKSU'
         required: true
         type: string
       compiler:
@@ -30,7 +30,7 @@ on:
         type: string
       kernel-branch:
         description: 'Kernel-branch'
-        default: 'main'
+        default: 'new'
         required: true
         type: string
       kernel-config:
