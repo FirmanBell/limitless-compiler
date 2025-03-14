@@ -133,6 +133,10 @@ jobs:
             mkdir -p -v $HOME/gcc-32
             aria2c -o gcc-arm.tar.gz https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/+archive/4d16d93f49c2b5ecdd0f12c38d194835dd595603.tar.gz
             tar -C $HOME/gcc-32 -zxf gcc-arm.tar.gz
+         if ! [ -d "$PWD/gcc11" ]; then
+    git clone https://github.com/mvaisakh/gcc-arm64.git -b gcc-master --depth=1 gcc11
+         else
+    echo "gcc11 folder is exist, not cloning"
          fi
     - name: Setup Clang
       run: |
