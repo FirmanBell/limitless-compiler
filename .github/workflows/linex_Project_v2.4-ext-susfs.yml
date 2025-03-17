@@ -126,7 +126,7 @@ jobs:
             elif [ ${{ inputs.aosp-clang }} == "21" ]; then 
                 aria2c -o aosp-clang.tar.gz https://github.com/ZyCromerZ/Clang/releases/download/21.0.0git-20250205-release/Clang-21.0.0git-20250205.tar.gz
             elif [ ${{ inputs.aosp-clang }} == "pro" ]; then 
-                aria2c -o proton-clang.tar.gz https://github.com/kdrag0n/proton-clang/archive/refs/tags/20210522.tar.gz
+                aria2c -o aosp-clang.tar.gz https://github.com/kdrag0n/proton-clang/archive/refs/tags/20210522.tar.gz
             elif [ ${{ inputs.aosp-clang }} != false ]; then
                 aria2c -o aosp-clang.tar.gz ${{ inputs.aosp-clang }}
             fi
