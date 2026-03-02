@@ -190,6 +190,8 @@ jobs:
             curl -LSs "https://raw.githubusercontent.com/rsuntk/KernelSU/main/kernel/setup.sh" | bash -s main
          elif [ ${{ inputs.kernelsu }} == rs ]; then
             curl -LSs "https://raw.githubusercontent.com/FirmanBell/KernelSU/main/kernel/setup.sh" | bash -s main
+         elif [ ${{ inputs.kernelsu }} == hookless ]; then   
+            curl -LSs "https://raw.githubusercontent.com/Sorayukii/KernelSU-Next/stable/kernel/setup.sh" | bash -s hookless
          elif [ ${{ inputs.kernelsu }} != false ]; then
             ${{ inputs.kernelsu }}
          fi
