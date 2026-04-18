@@ -1,5 +1,5 @@
 # Annoy Project
-name: platina_4.19
+name: 4.19
 on:
   workflow_dispatch:
     inputs:
@@ -30,7 +30,7 @@ on:
         type: string
       kernel-branch:
         description: 'Kernel-branch'
-        default: 'main'
+        default: 'hookless'
         required: true
         type: string
       kernel-config:
@@ -40,12 +40,12 @@ on:
         type: string
       kernelsu:
         description: 'KernelSU | false for disable'
-        default: 'next'
+        default: 'hookless'
         required: true
         type: string
       disable-lto:
         description: 'Disable LTO'
-        default: 'true'
+        default: 'false'
         required: true
         type: string
       AK3:
