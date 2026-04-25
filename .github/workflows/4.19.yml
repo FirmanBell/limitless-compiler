@@ -45,7 +45,7 @@ on:
         type: string
       disable-lto:
         description: 'Disable LTO'
-        default: 'false'
+        default: 'true'
         required: true
         type: string
       AK3:
