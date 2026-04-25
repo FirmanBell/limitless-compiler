@@ -10,7 +10,7 @@ on:
         type: string
       name:
         description: 'Name'
-        default: '4.4.292-Loneliness'
+        default: '4.4.292-Morph'
         required: true
         type: string
       compiler:
@@ -55,11 +55,11 @@ on:
         type: string
 jobs:
   linext-24:
-    runs-on: ${{ inputs.ubuntu }}
+    runs-on: ${{ github.event.inputs.ubuntu }}
     steps:
     - name: Checkin
       run: |
-         echo "name: ${{ inputs.name }}"
+         echo "name: ${{ github.event.inputs.name }}"
          echo "compiler: ${{ inputs.compiler }}"
          echo "aosp-clang: ${{ inputs.aosp-clang }}"
          if [ ${{ inputs.kernel-url }} != false ]; then
