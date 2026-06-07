@@ -35,7 +35,7 @@ on:
         type: string
       kernel-config:
         description: 'Kernel-config'
-        default: 'vendor/msm8937-perf_defconfig vendor/xiaomi/msm8937/common.config vendor/xiaomi/msm8937/mi8937.config vendor/feature/android-12.config vendor/feature/erofs.config vendor/feature/exfat.config vendor/feature/ksu_static_hooks.config vendor/feature/lindroid.config vendor/feature/lmkd.config vendor/feature/lto.config vendor/feature/no-audio-stack.config vendor/feature/no-camera-stack.config vendor/feature/no-wlan-driver.config vendor/feature/ntfs.config vendor/feature/squashfs.config vendor/feature/uclamp.config vendor/feature/wireguard.config vendor/feature/unify-boot-image.config vendor/feature/custom_kernel.config'
+        default: 'vendor/msm8937-perf_defconfig vendor/msm8937-legacy.config vendor/common.config vendor/xiaomi/msm8937/common.config vendor/xiaomi/msm8937/mi8937.config vendor/debugfs.config vendor/feature/android-12.config vendor/feature/erofs.config vendor/feature/exfat.config vendor/feature/ntfs.config vendor/feature/lmkd.config vendor/feature/wireguard.config vendor/feature/custom_kernel.config'
         required: true
         type: string
       kernelsu:
