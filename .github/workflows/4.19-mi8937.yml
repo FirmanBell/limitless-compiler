@@ -10,7 +10,7 @@ on:
         type: string
       name:
         description: 'Name'
-        default: '4.19.325-Luuvy-EspressoV1'
+        default: '4.19.325-Loneliness-mi8937'
         required: true
         type: string
       compiler:
@@ -25,17 +25,17 @@ on:
         type: string
       kernel-url:
         description: 'Kernel-url'
-        default: 'https://github.com/zeta96/android_kernel_xiaomi_msm8937.git'
+        default: 'https://github.com/FirmanBell/android_kernel_xiaomi_msm8937.git'
         required: true
         type: string
       kernel-branch:
         description: 'Kernel-branch'
-        default: 'mithorium/a13/master'
+        default: 'lineage-23.2'
         required: true
         type: string
       kernel-config:
         description: 'Kernel-config'
-        default: 'vendor/msm8937-perf_defconfig vendor/msm8937-legacy.config vendor/common.config vendor/xiaomi/msm8937/common.config vendor/xiaomi/msm8937/mi8937.config vendor/debugfs.config vendor/feature/android-12.config vendor/feature/erofs.config vendor/feature/exfat.config vendor/feature/ntfs.config vendor/feature/lmkd.config vendor/feature/wireguard.config vendor/feature/custom_kernel.config'
+        default: 'vendor/msm8937-perf_defconfig vendor/msm8937-legacy.config vendor/common.config vendor/xiaomi/msm8937/common.config vendor/xiaomi/msm8937/mi8937.config vendor/debugfs.config vendor/feature/android-12.config vendor/feature/erofs.config vendor/feature/exfat.config vendor/feature/ntfs.config vendor/feature/lmkd.config vendor/feature/wireguard.config vendor/feature/custom.config'
         required: true
         type: string
       kernelsu:
