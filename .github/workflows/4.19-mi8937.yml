@@ -50,7 +50,7 @@ on:
         type: string
       AK3:
         description: 'AnyKernel3'
-        default: 'https://github.com/MakeAnnoy/AnyKernel3.git'
+        default: 'https://github.com/MakeAnnoy/AnyKernel3.git -b mithorium'
         required: true
         type: string
 jobs:
