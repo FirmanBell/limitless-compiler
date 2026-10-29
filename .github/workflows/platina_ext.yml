@@ -20,7 +20,7 @@ on:
         type: string
       aosp-clang:
         description: 'Clang | false for disable'
-        default: '21'
+        default: '20'
         required: true
         type: string
       kernel-url:
