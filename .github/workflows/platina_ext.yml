@@ -50,7 +50,7 @@ on:
         type: string
       AK3:
         description: 'AnyKernel3'
-        default: 'https://github.com/FirmanBell/AnyKernel3.git'
+        default: 'https://github.com/FirmanBell/AnyKernel3.git -b platina'
         required: true
         type: string
 jobs:
