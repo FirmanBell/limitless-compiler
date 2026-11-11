@@ -5,7 +5,7 @@ on:
     inputs:
       ubuntu:
         description: 'Run on'
-        default: 'ubuntu-latest'
+        default: 'ubuntu-24.04'
         required: true
         type: string
       name:
@@ -56,6 +56,7 @@ on:
 jobs:
   linext-24:
     runs-on: ${{ inputs.ubuntu }}
+    timeout-minutes: 180
     steps:
     - name: Checkin
       run: |
@@ -83,30 +84,44 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Setup Packages
+      timeout-minutes: 15
+      env:
+        DEBIAN_FRONTEND: noninteractive
+        NEEDRESTART_MODE: a
       run: |
          sudo timedatectl set-timezone Asia/Jakarta
-         sudo apt update -y
-         sudo apt-get install --no-install-recommends -y gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu lld llvm g++-aarch64-linux-gnu
-         aria2c -q https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh && NONINTERACTIVE=1 bash ./uninstall.sh -f -q
-         if [ -f /bin/swapon ]; then
-             export SWAP_FILE=$(swapon --show=NAME | tail -n 1)
-             sudo swapoff $SWAP_FILE
-             sudo rm $SWAP_FILE
-             sudo fallocate -l 16G $SWAP_FILE
-             sudo chmod 600 $SWAP_FILE
-             sudo mkswap $SWAP_FILE
-             sudo swapon $SWAP_FILE
-             unset SWAP_FILE
+
+         # Repo Microsoft sering lambat/hang dan tidak dibutuhkan buat build kernel
+         sudo rm -f /etc/apt/sources.list.d/microsoft* /etc/apt/sources.list.d/azure-cli* /etc/apt/sources.list.d/mono-* 
+
+         APT_OPTS="-o Acquire::Retries=3 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"
+         sudo apt-get $APT_OPTS update
+         sudo apt-get $APT_OPTS install --no-install-recommends -y aria2 curl gcc-arm-linux-gnueabi gcc-aarch64-linux-gnu lld llvm g++-aarch64-linux-gnu
+
+         # Hapus Homebrew biar lega disk (tanpa download uninstall.sh)
+         sudo rm -rf /home/linuxbrew
+
+         # Swap 16G
+         SWAP_FILE=$(swapon --show=NAME --noheadings | tail -n 1)
+         if [ -n "$SWAP_FILE" ]; then
+             sudo swapoff "$SWAP_FILE"
+             sudo rm -f "$SWAP_FILE"
+             sudo fallocate -l 16G "$SWAP_FILE"
+             sudo chmod 600 "$SWAP_FILE"
+             sudo mkswap "$SWAP_FILE"
+             sudo swapon "$SWAP_FILE"
          fi
+         free -h
+         df -h
     - name: Setup GCC
       run: |
          if [ ${{ inputs.aosp-clang }} == false ]; then
             echo "aosp-clang disable"
          else
             mkdir -p -v $HOME/gcc-64
-            git clone -b lineage-19.1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9.git $HOME/gcc-64
+            git clone --depth=1 -b lineage-19.1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9.git $HOME/gcc-64
             mkdir -p -v $HOME/gcc-32
-            git clone -b lineage-19.1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9.git $HOME/gcc-32
+            git clone --depth=1 -b lineage-19.1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9.git $HOME/gcc-32
          fi
     - name: Setup Clang
       run: |
@@ -128,9 +143,9 @@ jobs:
             elif [ ${{ inputs.aosp-clang }} == "19" ]; then
                 aria2c -o aosp-clang.tar.gz https://github.com/ThRE-Team/direct/releases/download/clang-r536225/clang-r536225.tar.gz
             elif [ ${{ inputs.aosp-clang }} == "20" ]; then
-                aria2c -o aosp-clang.tar.gz https://github.com/ThRE-Team/direct/releases/download/clang-r547379/clang-r547379.tar.gz          
+                aria2c -o aosp-clang.tar.gz https://github.com/ThRE-Team/direct/releases/download/clang-r547379/clang-r547379.tar.gz
             elif [ ${{ inputs.aosp-clang }} == "21" ]; then
-                aria2c -o aosp-clang.tar.gz https://github.com/ThRE-Team/direct/releases/download/clang-r574158/clang-r574158.tar.gz         
+                aria2c -o aosp-clang.tar.gz https://github.com/ThRE-Team/direct/releases/download/clang-r574158/clang-r574158.tar.gz
             elif [ ${{ inputs.aosp-clang }} == "22" ]; then
                 aria2c -o aosp-clang.tar.gz https://github.com/ThRE-Team/direct/releases/download/clang-r596125/clang-r596125.tar.gz
             elif [ ${{ inputs.aosp-clang }} == "23" ]; then
